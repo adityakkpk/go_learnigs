@@ -25,3 +25,17 @@ GOOS=windows GOARCH=amd64 go build .
 - Some conventions about package names:
     - Package name should be in small case
     - Package names have to be as short as possible
+
+- Functions (some of the example):
+    
+```
+func add(x int, y int) int {
+	return x + y
+}
+
+func add(x, y int) int {
+    return x + y
+}
+```
+
+- Next i am following this documentation : [Go](https://go.dev/tour)
