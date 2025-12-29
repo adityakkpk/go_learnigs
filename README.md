@@ -39,3 +39,11 @@ func add(x, y int) int {
 ```
 
 - Next i am following this documentation : [Go](https://go.dev/tour)
+
+
+- There are 5 reference types are there in the Go:
+    1. Pointers
+    2. Slices
+    3. Functions
+    4. Channels
+    5. Maps
