@@ -92,3 +92,65 @@ func main() {
 }
 ```
 - Array's size is a part of its type. So arrays cannot be resized
+
+
+### Slices 
+- A slice is:
+    - A dynamic, flexible view over an array
+    - Does not store data itself
+    - Points to an underlying array
+
+```go
+// Example
+s := []int{1, 2, 3}
+
+/*
+This creates:
+    - An array in memory
+    - A slice header pointing to it
+*/
+
+
+
+// Slice Declaration using 'make'
+s := make([]int, 3)        // len=3, cap=3 → [0 0 0]
+s := make([]int, 3, 5)     // len=3, cap=5
+
+len(s) // number of usable elements
+cap(s) // total space from start pointer
+
+
+
+s := make([]int, 3, 5)
+// len = 3 → usable
+// cap = 5 → total allocated
+
+
+
+// A slice is a small struct:
+type slice struct {
+    ptr *T   // pointer to array
+    len int
+    cap int
+}
+
+
+
+// Slicing a slice (Shared Memory ⚠️)
+s1 := []int{1, 2, 3, 4, 5} // len=5, cap=5
+s2 := s1[1:4] // [2 3 4]
+
+// ⚠️ Both share the same array
+s2[0] = 99
+fmt.Println(s1) // [1 99 3 4 5]
+
+
+
+// How slices are dynamic:
+s := []int{1, 2, 3} // len=3 cap=3
+s = append(s, 4)
+
+// Old Array: [1 2 3]
+// New Array: [1 2 3 4 _ _] //After appending a element is doubled its size/capacity to (6) and length become (4)
+
+```
