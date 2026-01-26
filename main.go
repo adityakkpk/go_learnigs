@@ -464,8 +464,49 @@ Try printing needInt(Big) too.
 // ###################### Slices ########################
 import "fmt"
 
-func main () {
-	primes := [6]int{2, 3, 5, 7, 11, 13} // This is a slice 
+// func main () {
+// 	primes := [6]int{2, 3, 5, 7, 11, 13} // This is a slice 
 
-	fmt.Println((primes))
+// 	fmt.Println((primes))
+// }
+
+// func main() {
+// 	var nums []int
+// 	for i := range 20 {
+// 		nums = append(nums, i)
+// 		fmt.Printf("Length: %d, Capacity: %d\n", len(nums), cap(nums))
+// 	}
+// }
+
+// func main() {
+// 	var nums []int
+// 	fmt.Println("Initial slice:", nums, "Length:", len(nums), "Capacity:", cap(nums))
+// 	for i := range 20 {
+// 		nums = append(nums, i)
+// 		fmt.Printf("After append %d: Length: %d, Capacity: %d\n", i+1, len(nums), cap(nums))
+// 	}
+// }
+
+
+// The above will do some internal working every time when the capacity is exceeded so its better to define slices in we know the leanght earlier
+// func main() {
+// 	var nums []int = make([]int, 0, 20)
+// 	fmt.Println("Initial slice:", nums, "Length:", len(nums), "Capacity:", cap(nums))
+// 	for i := range 20 {
+// 		nums = append(nums, i)
+// 		fmt.Printf("After append %d: Length: %d, Capacity: %d\n", i+1, len(nums), cap(nums))
+// 	}
+// }
+
+
+// range 
+func main () {
+	var pow = []int{1,2,3,4,5,6,7,8,9}
+
+	for i, v := range pow {
+		fmt.Printf("Index: %d, Value: %d\n", i, v)
+	}
 }
+
+
+
