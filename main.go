@@ -2,6 +2,11 @@ package main
 
 // import (
 // 	"fmt"
+// 	"math"
+// )
+
+// import (
+// 	"fmt"
 // )
 
 // ################ Basics ##################
@@ -371,25 +376,11 @@ Try printing needInt(Big) too.
 // 	// fmt.Scan(&name)
 // 	// fmt.Println("My Name is", name)
 
-
 // 	// Multi word Input
 // 	reader := bufio.NewReader(os.Stdin)
 // 	name, _ := reader.ReadString('\n')
 // 	fmt.Println("Hello,", name)
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // ###################### Struct ########################
 // import "fmt"
@@ -405,8 +396,6 @@ Try printing needInt(Big) too.
 // 	fmt.Println(v)
 // }
 
-
-
 // ###################### Pointers with Struct ########################
 // import "fmt"
 
@@ -421,7 +410,6 @@ Try printing needInt(Big) too.
 // 	fmt.Println((v))
 // }
 
-
 // type Vertex struct {
 // 	X, Y int
 // }
@@ -435,13 +423,6 @@ Try printing needInt(Big) too.
 // 	fmt.Println(v1, p, v2, v3)
 // }
 
-
-
-
-
-
-
-
 // ###################### Arrays ########################
 // import "fmt"
 
@@ -454,18 +435,11 @@ Try printing needInt(Big) too.
 //     fmt.Println(a)
 // }
 
-
-
-
-
-
-
-
 // ###################### Slices ########################
-import "fmt"
+// import "fmt"
 
 // func main () {
-// 	primes := [6]int{2, 3, 5, 7, 11, 13} // This is a slice 
+// 	primes := [6]int{2, 3, 5, 7, 11, 13} // This is a slice
 
 // 	fmt.Println((primes))
 // }
@@ -487,7 +461,6 @@ import "fmt"
 // 	}
 // }
 
-
 // The above will do some internal working every time when the capacity is exceeded so its better to define slices in we know the leanght earlier
 // func main() {
 // 	var nums []int = make([]int, 0, 20)
@@ -498,15 +471,79 @@ import "fmt"
 // 	}
 // }
 
+// range
+// func main () {
+// 	var pow = []int{1,2,3,4,5,6,7,8,9}
 
-// range 
-func main () {
-	var pow = []int{1,2,3,4,5,6,7,8,9}
+// 	for i, v := range pow {
+// 		fmt.Printf("Index: %d, Value: %d\n", i, v)
+// 	}
+// }
 
-	for i, v := range pow {
-		fmt.Printf("Index: %d, Value: %d\n", i, v)
-	}
-}
+// ############################# Map (Hashmap / Dictionary) ###################################
+// type Vertex struct {
+// 	Lat, Lng float64
+// }
+
+// var m map[string]Vertex // variable m of type map which has key of string type and values are of Vertex type
+
+// Other way to initialize map
+// var m = map[string]Vertex{
+// 	"Google": Vertex{
+// 		37.42202, -122.08480,
+// 	},
+// }
+
+// func main() {
+// m = make(map[string]Vertex) // here we are initializing the map with make()
+// m["Bell Labs"] = Vertex{
+// 	40.68433, -74.39967,
+// }
+// fmt.Println(m["Bell Labs"])
+
+// Manipulate Map key-values
+// m := make(map[string]int)
+
+// m["Answer"] = 42
+// fmt.Println("The value:", m["Answer"])
+
+// m["Answer"] = 48
+// fmt.Println("The value:", m["Answer"])
+
+// // delete(m, "Answer")
+// // fmt.Println("The value:", m["Answer"])
+
+// // v, ok := m["Answer"]
+// // fmt.Println("The value:", v, "Present?", ok)
+
+// for key, value := range m {
+// 	fmt.Println(key, value)
+// }
+// }
+
+// Note : Use 'structs' to store data and use 'maps' to lookup data
+
+// #################### anonymous functions ###################
+// func compute(fn func(float64, float64) float64) float64 {
+// 	return fn(3, 4)
+// }
+
+// func main () {
+// 	hypot := func (x, y float64) float64 {
+// 		return math.Sqrt(x*x + y*y)
+// 	}
+// 	fmt.Println(hypot(5, 12))
+
+// 	fmt.Println(compute(hypot))
+// 	fmt.Println(compute(math.Pow))
+// }
 
 
 
+
+
+
+
+
+
+// ############### closures #################
