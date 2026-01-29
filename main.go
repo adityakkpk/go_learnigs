@@ -538,12 +538,69 @@ Try printing needInt(Big) too.
 // 	fmt.Println(compute(math.Pow))
 // }
 
-
-
-
-
-
-
-
-
 // ############### closures #################
+// import "fmt"
+
+// func adder() func(int) int {
+// 	sum := 0
+// 	return func(x int) int {
+// 		sum += x
+// 		return sum
+// 	}
+// }
+
+// func main() {
+// 	pos, neg := adder(), adder()
+
+// 	for i := range 10 {
+// 		fmt.Println(
+// 			i,
+// 			pos(i),
+// 			"|",
+// 			-2*i,
+// 			neg(-2*i),
+// 		)
+// 	}
+// }
+
+// ############# Methods ####################
+
+import (
+	"fmt"
+	"math"
+)
+
+type Vertex struct {
+	X, Y float64
+}
+
+type MyFloat float64
+
+// V is a value receiver
+func (v Vertex) Abs() float64 { // This function is bind to the Vertex, with an instance of Vertex as in OOP we define some method in a class which can access and modify the class variables
+	return math.Sqrt(v.X*v.X + v.Y*v.Y)
+}
+
+//here v is a pointer receiver, so whatever change we nake to the Vertex will reflect in the Vertex itself
+func (v *Vertex) Scale(f float64) {
+	v.X = v.X * f
+	v.Y = v.Y * f
+}
+
+func (f MyFloat) Abs() float64 { // f is a receiver
+	if f < 0 {
+		return float64(-f)
+	}
+
+	return float64(f)
+}
+
+func main() {
+	
+	v := Vertex{3,4}
+	v.Scale(10)
+	f := MyFloat(-math.Sqrt2)
+
+	fmt.Println(v.Abs())
+	fmt.Println(f.Abs())
+}
