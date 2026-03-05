@@ -563,6 +563,7 @@ Try printing needInt(Big) too.
 // 	}
 // }
 
+/*
 // ############# Methods ####################
 
 import (
@@ -596,11 +597,251 @@ func (f MyFloat) Abs() float64 { // f is a receiver
 }
 
 func main() {
-	
+
 	v := Vertex{3,4}
 	v.Scale(10)
 	f := MyFloat(-math.Sqrt2)
 
 	fmt.Println(v.Abs())
 	fmt.Println(f.Abs())
+}
+*/
+
+// ##################### Interfaces #####################
+// Ex 1
+/*
+import (
+	"fmt"
+	"math"
+)
+
+type Abser interface {
+	Abs() float64
+}
+
+func main() {
+	var a Abser
+	f := MyFloat(-math.Sqrt2)
+	v := Vertex{3, 4}
+
+	a = f // a MyFloat implements Abser : The MyFloat has Abs method, which has this MyFloat as receiver
+	a = &v // a *Vertex implements Abser : The *Vertex has Abs method, which has this *Vertex as receiver
+
+	// In The following line, v is a Vertex (not *Vertex)
+	// and does not Implement Abser.
+	a = v // This is giving error because: : The Vertex has no Abs method associated with it as receiver Vertex
+
+	fmt.Println(a.Abs())
+
+}
+
+type MyFloat float64 
+
+func (f MyFloat) Abs() float64 {
+	if f < 0 {
+		return float64(-f)
+	}
+	return float64(f)
+}
+
+type Vertex struct {
+	X, Y float64
+}
+
+func (v *Vertex) Abs() float64{
+	return math.Sqrt(v.X*v.X + v.Y*v.Y)
+}
+*/
+
+//Ex 2
+// import "fmt"
+
+// type I interface {
+// 	M()
+// }
+
+// type T struct {
+// 	S string
+// }
+
+
+// // This method means type T implements the interface I,
+// // but we don't need to explicitly declare that it does so.
+// func (t T) M() {
+// 	fmt.Println(t.S)
+// }
+
+// func main() {
+// 	var i I = T{"hello"}
+// 	i.M()
+// }
+
+
+// Ex 3: empty interface
+// import "fmt"
+
+// type any interface{}
+
+// func main() {
+// 	var i any
+// 	describe(i)
+
+
+// 	i = 42
+// 	describe(i)
+
+
+// 	i = "hello"
+// 	describe(i)
+// }
+
+// func describe(i interface{}) {
+// 	fmt.Printf("(%v, %T)\n", i, i)
+// }
+
+
+
+// Ex 4: Interfaces with type assertion
+// import "fmt"
+
+// func main() {
+// 	var i interface{} = "hello"
+
+// 	s := i.(string)
+// 	fmt.Println(s)
+
+
+// 	s, ok := i.(string)
+// 	fmt.Println(s, ok)
+
+
+// 	f, ok := i.(float64)
+// 	fmt.Println(f, ok)
+	
+// 	f = i.(float64)
+// 	fmt.Println(f)
+// }
+
+
+
+// Ex 5: Simplify the interface
+// import "fmt"
+
+// func do(i interface{}) {
+// 	switch v := i.(type) {
+// 	case int:
+// 		fmt.Printf("Twice %v is %v\n", v, v*2)
+// 	case string:
+// 		fmt.Printf("%q is %v byes long\n", v, len(v))
+// 	default:
+// 		fmt.Printf("I dont know about the %T!\n", v)
+// 	}
+// }
+
+// func main() {
+// 	do(21)
+// 	do("hello")
+// 	do(true)
+// }
+
+
+// Ex 6: Stringer Example
+// import "fmt"
+
+// type Person struct {
+// 	Name string
+// 	Age int
+// }
+
+// type Person2 struct {
+// 	Name string
+// 	Age int
+// }
+
+// func (p Person) String() string {
+// 	return  fmt.Sprintf("%v (%v years)", p.Name, p.Age)
+// }
+
+// func main() {
+// 	a := Person{"Aditya", 24}  // This type has a method String(), so its printed like in the format defined in the String() method
+// 	b := Person2{"Ashwini", 27}
+
+// 	fmt.Println(a, b) // Here fmt will check, the argument's type has a String Method defined or not and based on that it will print the argument
+// }
+
+/*
+// Ex 7: Error Interface
+import (
+	"fmt"
+	"time"
+)
+
+type MyError struct {
+	When time.Time
+	What string
+}
+
+func (e *MyError) Error() string {
+	return fmt.Sprintf("at %v, %s", e.When, e.What)
+}
+
+func run() error {
+	return  &MyError{
+		time.Now(),
+		"It didn't work",
+	}
+}
+
+func main() {
+	if err := run(); err != nil {
+		fmt.Println(err)
+	}
+}
+*/
+
+
+
+
+
+// ###################### Generics ##################################
+
+import "fmt"
+
+func IndexInt(s []int, t int) int {
+	for i, v := range s {
+		if v == t {
+			return i
+		}
+	}
+	return -1
+}
+
+func IndexString(s []string, t string) int {
+	for i , v := range s {
+		if v == t {
+			return i
+		}
+	}
+	return -1
+}
+
+// Using Generics we can reduce the above two functions into a single one
+func Index[T comparable](s []T, x T) int {
+	for i , v := range s {
+		if v == x {
+			return i
+		}
+	}
+	return -1
+}
+
+func main() {
+	si := []int{1, 2, 3, 4, 5};
+	// fmt.Println(IndexInt(si, 4))
+	fmt.Println(Index(si, 4))
+
+
+	ss := []string{"foo", "bar", "bax"}
+	// fmt.Println(IndexString(ss, "hello"))
+	fmt.Println(Index(ss, "hello"))
 }
