@@ -1,3 +1,3 @@
-module go_learnings/strings
+module go_learnings
 
 go 1.25.0
